@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="static/img/logo.png">
+    <title>Popup Form</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <style>
+        /* Popup styles */
+        .popup {
+            display: flex; /* Show by default */
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+            z-index: 1000; /* Sit on top */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 60%;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <center><h2>Let Our Consultant Understand Your Buissiness – Lumenox Solutions</h2></center>
+    <div class="popup" id="myPopup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <h2>Get A Quote</h2>
+            <form id="quoteForm" action="{{ url_for('submit_survey') }}" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="phone">Your Phone</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                </div><br>
+                <div class="form-group">
+                    <label for="interest">Interest</label>
+                    <input type="text" class="form-control" id="interest" name="interest" required>
+                </div><br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Close the popup when the user clicks on <span> (x)
+        /* document.getElementById("closePopup").onclick = function () {
+            document.getElementById("myPopup").style.display = "none";
+        } */
+     // Close the popup and redirect to home when the user clicks on <span> (x)
+        document.getElementById("closePopup").onclick = function () {
+            window.location.href = "{{ url_for('index') }}"; // Redirect to home page
+        }
+        // Close the popup when the user clicks anywhere outside of the popup
+        window.onclick = function (event) {
+            if (event.target == document.getElementById("myPopup")) {
+                document.getElementById("myPopup").style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
